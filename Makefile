@@ -1,7 +1,7 @@
 # THE NAME OF YOUR EXECUTABLE
 TARGET = dyno
 # ALL CPP COMPILABLE IMPLEMENTATION FILES THAT MAKE UP THE PROJECT
-SRC_FILES = main.cpp
+SRC_FILES = main.cpp App.hpp DataCollector.hpp Rotation.hpp
 
 # NO EDITS NEEDED BELOW THIS LINE
 CXX = g++
@@ -25,8 +25,8 @@ else
 	DEL = rm -f
 	Q = "
 
-	INC_PATH = /usr/local/include/
-	LIB_PATH = /usr/local/lib/
+	INC_PATHS = -I/usr/local/include/
+	LIB_PATHS = -L/usr/local/lib/
 
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
@@ -41,15 +41,15 @@ else
 	UNAME_P := $(shell uname -p)
 endif
 
-LIBS = -lftd2xx -lpthread -lrt
+LIBS = -lftd2xx -lpthread -lrt -lboost_thread
 
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CXX) -o $@ $^ $(RPATH) -L$(LIB_PATH) $(LIBS)
+	$(CXX) -o $@ $^ $(RPATH) $(LIB_PATHS) $(LIBS)
 
 .cpp.o:
-	$(CXX) $(CXXFLAGS) $(CPPVERSION) $(CXXFLAGS_DEBUG) $(CXXFLAGS_WARN) -o $@ -c $< -I$(INC_PATH)
+	$(CXX) $(CXXFLAGS) $(CPPVERSION) $(CXXFLAGS_DEBUG) $(CXXFLAGS_WARN) -o $@ -c $< -(INC_PATH)
 
 clean:
 	$(DEL) $(TARGET) $(OBJECTS)
@@ -63,4 +63,4 @@ depend:
 .PHONY: all clean depend
 
 # DEPENDENCIES
-main.o: main.cpp
+main.o: main.cpp App.hpp DataCollector.hpp Rotation.hpp

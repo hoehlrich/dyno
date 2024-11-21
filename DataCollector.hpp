@@ -3,29 +3,43 @@
 
 #include <iostream>
 #include <ftd2xx.h>
+#include <vector>
 #include <chrono>
+#include <atomic>
+#include <boost/thread.hpp>
 
 using namespace std;
 
 class DataCollector {
     public:
         ~DataCollector();
-        DataCollector(int ftdiPort);
-        void collectData(void (*pushTimestamp)(chrono::time_point<chrono::high_resolution_clock>));
+        DataCollector(int ftdiPort, vector<chrono::time_point<chrono::high_resolution_clock>>& rotationTimestamps);
+        void collectDataUntilKeyPressed();
     private:
-        DWORD bytesInQueue = 0;
+        DWORD bytesInQueue;
         EVENT_HANDLE eh;
         FT_STATUS ftStatus;
         FT_HANDLE ftHandle;
         int iport;
+        atomic_bool exit;
+        vector<chrono::time_point<chrono::high_resolution_clock>> timestamps;
+        void collectData();
 };
 
-void DataCollector::collectData(void (*pushTimestamp)(chrono::time_point<chrono::high_resolution_clock>)) {
+void DataCollector::collectDataUntilKeyPressed() {
+    exit = false;
+    boost::thread t;
+    t = boost::thread(boost::bind(&DataCollector::collectData, this));
+    cin.get();
+    exit = true;
+}
+
+void DataCollector::collectData() {
     pthread_mutex_init(&eh.eMutex, NULL);
     pthread_cond_init(&eh.eCondVar, NULL);
 
     chrono::time_point<chrono::high_resolution_clock> start, end;
-    while (1) {
+    while (!exit) {
         ftStatus = FT_SetEventNotification(ftHandle, FT_EVENT_RXCHAR, (PVOID) &eh);
         if (ftStatus != FT_OK) {
             cout << "Failed to set events" << endl;
@@ -37,15 +51,21 @@ void DataCollector::collectData(void (*pushTimestamp)(chrono::time_point<chrono:
         pthread_mutex_unlock(&eh.eMutex);
 
         FT_GetQueueStatus(ftHandle, &bytesInQueue);
-        pushTimestamp(chrono::high_resolution_clock::now());
+        timestamps.push_back(chrono::high_resolution_clock::now());
 
         // need some exit condition (maybe C-D EOF interrupt??)
+        if (exit) {
+            break;
+        }
     }
 }
 
-DataCollector::DataCollector(int ftdiPort) {
+DataCollector::DataCollector(int ftdiPort, vector<chrono::time_point<chrono::high_resolution_clock>>& rotationTimestamps) {
+    bytesInQueue = 0;
     iport = ftdiPort;
     ftStatus = FT_Open(iport, &ftHandle);
+    timestamps = rotationTimestamps;
+    exit = false;
     if (ftStatus != FT_OK) {
         cout << "FT_Open(" << iport << ")failed" << endl;
         // maybe throw an error
