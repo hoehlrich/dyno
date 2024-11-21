@@ -2,9 +2,11 @@
 #define ROTATION
 
 #include <chrono>
+#include <ratio>
 #include <stdint.h>
 #include <iomanip>
 #include <iostream>
+#include <ctime>
 
 #define I   0.129
 
@@ -15,7 +17,6 @@ class Rotation {
         Rotation(chrono::time_point<chrono::high_resolution_clock> start,
                 chrono::time_point<chrono::high_resolution_clock> end);
         void calculate(Rotation& prevRotation, Rotation& nextRotation);
-    private:
         chrono::time_point<chrono::high_resolution_clock> start;
         chrono::time_point<chrono::high_resolution_clock> end;
         chrono::duration<uint64_t, micro> rotationDuration;
@@ -24,9 +25,11 @@ class Rotation {
         double *torque;
 };
 
-Rotation::Rotation(chrono::time_point<chrono::high_resolution_clock> start,
-        chrono::time_point<chrono::high_resolution_clock> end) {
-        
+
+Rotation::Rotation(chrono::time_point<chrono::high_resolution_clock> startTime,
+        chrono::time_point<chrono::high_resolution_clock> endTime) {
+        start = startTime;
+        end = endTime;
         rotationDuration = chrono::duration_cast<chrono::microseconds>(end - start);
         velocity = new double;
         *velocity = (double) (2.0 * 3.14159) / rotationDuration.count();
@@ -48,7 +51,10 @@ double radPerSecToRPM(double radPerSec) {
 }
 
 ostream& operator<<(ostream& os, const Rotation& rotation) {
-    // os << setw(4) << put_time(localtime(&rotation.start), "%c") << " to " << put_time(localtime(&rotation.end), "%H:%M:%S") << endl;
+    const time_t start = chrono::system_clock::to_time_t(rotation.start);
+    os << put_time(localtime(&start), "%H:%M:%S") << "    "
+        << right << fixed << setprecision(3) << rotation.rotationDuration.count() / 1e+6 << 's';
+    return os;
 }
 
 #endif

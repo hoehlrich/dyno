@@ -49,7 +49,7 @@ $(TARGET): $(OBJECTS)
 	$(CXX) -o $@ $^ $(RPATH) $(LIB_PATHS) $(LIBS)
 
 .cpp.o:
-	$(CXX) $(CXXFLAGS) $(CPPVERSION) $(CXXFLAGS_DEBUG) $(CXXFLAGS_WARN) -o $@ -c $< -(INC_PATH)
+	$(CXX) $(CXXFLAGS) $(CPPVERSION) $(CXXFLAGS_DEBUG) $(CXXFLAGS_WARN) -o $@ -c $< $(INC_PATHS)
 
 clean:
 	$(DEL) $(TARGET) $(OBJECTS)
