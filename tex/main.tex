@@ -1,0 +1,60 @@
+\documentclass{article}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage[labelfont=bf]{caption}
+\usepackage[margin=1in]{geometry}
+
+\DeclareSIUnit\rpm{RPM}
+
+\begin{document}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={Time (\unit{\second})},
+                ylabel={Rotations Per Minute (\unit{\rpm})},
+                width=\textwidth,
+            ]
+            \addplot +[only marks,mark size=1.5pt] table [x=t, y=RPM]
+            {../data/calculations.dat};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Rotations per minute vs. time.}
+\end{figure}
+\newpage
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={Time (\unit{\second})},
+                ylabel={Acceleration (\unit{\radian\per\second\squared})},
+                width=\textwidth,
+            ]
+            \addplot +[only marks,mark size=1.5pt] table [x=t, y=rad/s^2]
+            {../data/calculations.dat};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Angular acceleration vs. time.}
+\end{figure}
+\newpage
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel={RPM (\unit{\rpm})},
+                ylabel={Torque (\unit{\newton\meter})},
+                width=\textwidth,
+            ]
+            \addplot +[only marks,mark size=1.5pt] table [x=RPM, y=Nm]
+            {../data/calculations.dat};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Torque vs. RPM.}
+\end{figure}
+\newpage
+
+\end{document}
+

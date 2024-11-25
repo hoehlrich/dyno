@@ -18,6 +18,7 @@ class Rotation {
         Rotation(chrono::duration<uint64_t, micro> duration);
         void calculate(Rotation& prevRotation, Rotation& nextRotation);
         chrono::duration<uint64_t, micro> rotationDuration;
+        chrono::duration<double> *relativeTimestamp;
         double *velocity;
         double *acceleration;
         double *torque;

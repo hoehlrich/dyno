@@ -16,6 +16,7 @@ class App {
         void loadFromFile(string filename);
         void writeToFile(string filename);
         void printData();
+        void writeCalculationsToFile(string filename);
     private:
         vector<Rotation> rotationData;
         DataCollector *dataCollector;

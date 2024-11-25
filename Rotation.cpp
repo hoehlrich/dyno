@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iomanip>
 #include <iostream>
 #include "Rotation.h"
@@ -11,6 +12,7 @@ Rotation::Rotation(chrono::time_point<chrono::high_resolution_clock> start,
         *velocity = (double) (2.0 * 3.14159) / (rotationDuration.count() / 1e+6);
         acceleration = nullptr;
         torque = nullptr;
+        relativeTimestamp = nullptr;
 }
 
 Rotation::Rotation(chrono::duration<uint64_t, micro> duration) {
@@ -19,9 +21,11 @@ Rotation::Rotation(chrono::duration<uint64_t, micro> duration) {
     *velocity = (double) (2.0 * 3.14159) / (rotationDuration.count() / 1e+6);
     acceleration = nullptr;
     torque = nullptr;
+    relativeTimestamp = nullptr;
 }
 
 void Rotation::calculate(Rotation& prevRotation, Rotation& nextRotation) {
+    relativeTimestamp =  new chrono::duration<double>(*prevRotation.relativeTimestamp + chrono::duration_cast<chrono::duration<double>>(prevRotation.rotationDuration));
     if (prevRotation.velocity != nullptr && nextRotation.velocity != nullptr) {
         acceleration = new double;
         torque = new double;
@@ -36,6 +40,8 @@ double radPerSecToRPM(double radPerSec) {
 
 ostream& operator<<(ostream& os, const Rotation& rotation) {
     os << left << fixed << setprecision(3) << rotation.rotationDuration.count() / 1e+6;
+    if (rotation.relativeTimestamp != nullptr)
+        os << "\t\t" << left << defaultfloat << setw(5) << setprecision(3) << rotation.relativeTimestamp->count();
     if (rotation.velocity != nullptr)
         os << "\t\t" << left << defaultfloat << setw(5) << setprecision(4) << radPerSecToRPM(*rotation.velocity) ;
     if (rotation.acceleration != nullptr)
