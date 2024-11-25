@@ -1,31 +1,9 @@
-#ifndef DATA_COLLECTOR
-#define DATA_COLLECTOR
-
 #include <iostream>
-#include <ftd2xx.h>
-#include <vector>
-#include <chrono>
-#include <atomic>
 #include <boost/thread.hpp>
-#include "Rotation.hpp"
+#include "DataCollector.h"
 
 using namespace std;
 
-class DataCollector {
-    public:
-        ~DataCollector();
-        DataCollector(int ftdiPort, vector<Rotation>& rotations);
-        void collectDataUntilKeyPressed();
-    private:
-        DWORD bytesInQueue;
-        EVENT_HANDLE eh;
-        FT_STATUS ftStatus;
-        FT_HANDLE ftHandle;
-        int iport;
-        atomic_bool exit;
-        vector<Rotation> rotationData;
-        void collectData();
-};
 
 void DataCollector::collectDataUntilKeyPressed() {
     cout << "BEGIN DATA COLLECTION (<CR> to quit)" << endl;
@@ -60,19 +38,22 @@ void DataCollector::collectData() {
 
         if (i == 0) {
             start = chrono::high_resolution_clock::now();
+            end = start;
+            i++;
+            continue;
         }
 
         FT_GetQueueStatus(ftHandle, &bytesInQueue);
         end = chrono::high_resolution_clock::now();
         Rotation r = Rotation(start, end);
-        rotationData.push_back(r);
+        rotationData->push_back(r);
         cout << r << endl;
         start = end;
         i++;
     }
 }
 
-DataCollector::DataCollector(int ftdiPort, vector<Rotation>& rotations) {
+DataCollector::DataCollector(int ftdiPort, vector<Rotation> *rotations) {
     bytesInQueue = 0;
     iport = ftdiPort;
     ftStatus = FT_Open(iport, &ftHandle);
@@ -94,4 +75,3 @@ DataCollector::~DataCollector() {
     FT_Close(ftHandle);
 }
 
-#endif

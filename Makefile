@@ -1,7 +1,7 @@
 # THE NAME OF YOUR EXECUTABLE
 TARGET = dyno
 # ALL CPP COMPILABLE IMPLEMENTATION FILES THAT MAKE UP THE PROJECT
-SRC_FILES = main.cpp App.hpp DataCollector.hpp Rotation.hpp
+SRC_FILES = main.cpp App.cpp DataCollector.cpp Rotation.cpp
 
 # NO EDITS NEEDED BELOW THIS LINE
 CXX = g++
@@ -63,4 +63,4 @@ depend:
 .PHONY: all clean depend
 
 # DEPENDENCIES
-main.o: main.cpp App.hpp DataCollector.hpp Rotation.hpp
+main.o: main.cpp App.cpp DataCollector.cpp Rotation.cpp App.h DataCollector.h Rotation.h
