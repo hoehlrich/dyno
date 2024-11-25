@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     // app.collectData();
     // app.deleteDataCollector();
     // app.writeToFile("data/data.dat");
-    app.loadFromFile("data/data.dat");
+    app.loadFromFile("data/test-data.dat");
     app.calculateStats();
     app.printData();
     app.writeCalculationsToFile("data/calculations.dat");

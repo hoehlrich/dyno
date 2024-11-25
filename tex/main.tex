@@ -6,6 +6,8 @@
 \usepackage[labelfont=bf]{caption}
 \usepackage[margin=1in]{geometry}
 
+\newcommand{\datafile}{../data/test-calculations.dat}
+
 \DeclareSIUnit\rpm{RPM}
 
 \begin{document}
@@ -19,7 +21,7 @@
                 width=\textwidth,
             ]
             \addplot +[only marks,mark size=1.5pt] table [x=t, y=RPM]
-            {../data/calculations.dat};
+            {\datafile};
         \end{axis}
     \end{tikzpicture}
     \caption{Rotations per minute vs. time.}
@@ -34,7 +36,7 @@
                 width=\textwidth,
             ]
             \addplot +[only marks,mark size=1.5pt] table [x=t, y=rad/s^2]
-            {../data/calculations.dat};
+            {\datafile};
         \end{axis}
     \end{tikzpicture}
     \caption{Angular acceleration vs. time.}
@@ -49,7 +51,7 @@
                 width=\textwidth,
             ]
             \addplot +[only marks,mark size=1.5pt] table [x=RPM, y=Nm]
-            {../data/calculations.dat};
+            {\datafile};
         \end{axis}
     \end{tikzpicture}
     \caption{Torque vs. RPM.}
