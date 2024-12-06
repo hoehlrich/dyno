@@ -10,7 +10,6 @@ App::App() {
 void App::calculateStats() {
     rotationData.at(0).relativeTimestamp = new chrono::duration<double>(0);
     for (size_t i = 1; i < rotationData.size() - 1; i++) {
-        cout << "here" << endl;
         rotationData.at(i).calculate(rotationData.at(i - 1), rotationData.at(i + 1));
     }
 }
@@ -22,7 +21,7 @@ void App::writeToFile(string filename) {
     for (i = 0; i < rotationData.size(); i++) {
         file << rotationData.at(i).rotationDuration.count() << endl;
     }
-    cout << "Successfully wrote " << i <<  "lines to " << '\"' << filename << '\"' << endl;
+    cout << "Successfully wrote " << i <<  " lines to " << '\"' << filename << '\"' << endl;
     file.close();
 }
 

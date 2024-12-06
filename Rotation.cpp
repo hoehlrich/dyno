@@ -40,6 +40,7 @@ double radPerSecToRPM(double radPerSec) {
 
 ostream& operator<<(ostream& os, const Rotation& rotation) {
     os << left << fixed << setprecision(3) << rotation.rotationDuration.count() / 1e+6;
+    // cout << "here" << endl;
     if (rotation.relativeTimestamp != nullptr)
         os << "\t\t" << left << defaultfloat << setw(5) << setprecision(3) << rotation.relativeTimestamp->count();
     if (rotation.velocity != nullptr)

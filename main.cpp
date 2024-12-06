@@ -6,11 +6,11 @@ int main(int argc, char *argv[]) {
     // app.initDataCollector(0);
     // app.collectData();
     // app.deleteDataCollector();
-    // app.writeToFile("data/data.dat");
-    app.loadFromFile("data/test-data.dat");
+    // app.writeToFile("data/5-data.dat");
+    app.loadFromFile("data/5-data.dat");
     app.calculateStats();
     app.printData();
-    app.writeCalculationsToFile("data/calculations.dat");
+    app.writeCalculationsToFile("data/5-calculations.dat");
 
     return 0;
 }

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.11.18)  24 NOV 2024 20:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.11.18)  2 DEC 2024 20:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -616,33 +616,32 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-PGFPlots: reading {../data/calculations.dat}
+PGFPlots: reading {../data/baseline-calculations.dat}
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 25.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 25.
+PGFPlots: reading {../data/baseline-calculations.dat}
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+PGFPlots: reading {../data/baseline-calculations.dat}
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-PGFPlots: reading {../data/calculations.dat}
- [2]
-PGFPlots: reading {../data/calculations.dat}
-
-Overfull \hbox (2.80289pt too wide) in paragraph at lines 56--57
- [][] 
- []
-
-[3] (./main.aux)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 28449 strings out of 476076
- 757042 string characters out of 5793774
- 1941187 words of memory out of 5000000
- 50199 multiletter control sequences out of 15000+600000
+ 28447 strings out of 476076
+ 756990 string characters out of 5793774
+ 1943187 words of memory out of 5000000
+ 50197 multiletter control sequences out of 15000+600000
  558377 words of font info for 37 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  102i,11n,107p,716b,2159s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -650,11 +649,11 @@ Here is how much of TeX's memory you used:
 texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (3 pages, 78931 bytes).
+y7.pfb>
+Output written on main.pdf (2 pages, 76802 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
- 29 compressed objects within 1 object stream
+ 39 PDF objects out of 1000 (max. 8388607)
+ 24 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

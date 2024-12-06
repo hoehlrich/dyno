@@ -1,0 +1,53 @@
+TITLE: Henry Oehlrich, CSCI D, Dynamometer Project 
+
+PROBLEM DESCRIPTION:
+The purpose of this project is for it to collect and analyze data from a
+dynamometer that my Design 1 group built. The dynamometer is a device that
+measures the force applied to it. The data is collected from the dynamometer
+from a sensor that uses an FTDI chip to communicate with the computer over USB.
+Each time the flywheel of the dynaometer completes a revolution, a packet is
+sent to the computer. By timestamping these packets and recording the time
+between them, the program calculates the RPM. From the're it derivates and
+calculates the torque and power of the system. The program write the data to a
+file in a format that is then read by a LaTeX file to create graphs that can be
+used in a report.
+
+CLASS DESCRIPTION:
+I created three custom classes for this project: App, Rotation, and
+DataCollector. The App class encapsulates all of the potential functionality of
+the program. Because I didn't create a command line interface, the
+functionality of the program: (collecting the data or loading it from a file)
+is selected by editing the main file. The Rotation class is a simple class that
+stores the timestamp, duration, velocity, acceleration, and torque of a single
+rotation. It also has a stream operator overload that is used to write the data
+to a file. The DataCollector class is the class that does the heavy lifting of
+collecting the data from the dynamometer. It relies heavily on the FTDI library
+"ftd2xx.h" to communicate with the sensor. The DataCollector class must use
+multithreading to collect the data while also waiting for the user to interrupt
+the program. This is done using the boost library as well as atomic. The
+DataCollector class helped encapsulate the library code required to collect
+data into a simple object that is composed within the App class.
+
+LIST DATA STRUCTURE:
+The list data structure that I used in this project is a std::vector of
+Rotations that is used to store the rotation data collected from the
+dynamometer. This structure was chosen because it is a dynamic array that can
+grow as needed.
+
+FILE I/O:
+File IO is used in this project to write the data collected from the
+dynamometer and the calculations thereof to files. It is necessary in the
+context of the program because the file that the program writes to is the same
+one that the LaTeX file reads from to create the graphs.
+
+REFLECTIONS:
+I'm a fairly seasoned programmer so most of the concepts in this project were
+straightforward. However I did run into a pretty big issue with allowing the
+user to interrupt the program. Because the program is constantly collecting
+data, I needed to use multithreading to allow the user to interrup the program.
+While I could write the multithreading code by hand, I remembered that console
+input multithreading is platform dependent and resolved to use the boost library
+to handle cross-platform console input multithreading. This was something that
+I hadn't had to think about prior because up until this point I had never had
+to worry about cross-platform functionality.
+

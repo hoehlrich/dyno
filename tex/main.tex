@@ -6,7 +6,7 @@
 \usepackage[labelfont=bf]{caption}
 \usepackage[margin=1in]{geometry}
 
-\newcommand{\datafile}{../data/test-calculations.dat}
+\newcommand{\datafile}{../data/baseline-calculations.dat}
 
 \DeclareSIUnit\rpm{RPM}
 
@@ -18,7 +18,7 @@
         \begin{axis}[
                 xlabel={Time (\unit{\second})},
                 ylabel={Rotations Per Minute (\unit{\rpm})},
-                width=\textwidth,
+                width=0.6\textwidth,
             ]
             \addplot +[only marks,mark size=1.5pt] table [x=t, y=RPM]
             {\datafile};
@@ -26,14 +26,13 @@
     \end{tikzpicture}
     \caption{Rotations per minute vs. time.}
 \end{figure}
-\newpage
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-                xlabel={Time (\unit{\second})},
                 ylabel={Acceleration (\unit{\radian\per\second\squared})},
-                width=\textwidth,
+                width=0.6\textwidth,
+                domain=0:20,
             ]
             \addplot +[only marks,mark size=1.5pt] table [x=t, y=rad/s^2]
             {\datafile};
@@ -41,14 +40,13 @@
     \end{tikzpicture}
     \caption{Angular acceleration vs. time.}
 \end{figure}
-\newpage
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
         \begin{axis}[
                 xlabel={RPM (\unit{\rpm})},
                 ylabel={Torque (\unit{\newton\meter})},
-                width=\textwidth,
+                width=0.6\textwidth,
             ]
             \addplot +[only marks,mark size=1.5pt] table [x=RPM, y=Nm]
             {\datafile};
